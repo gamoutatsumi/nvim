@@ -1,0 +1,41 @@
+[[plugins]]
+repo = 'alvan/vim-closetag'
+on_ft = ['html', 'php', 'vue']
+hook_add = '''
+lua << EOF
+  vim.g.closetag_filenames = '*.html,*.php,*.vue'
+EOF
+'''
+
+[[plugins]]
+repo = 'jmcantrell/vim-virtualenv'
+on_ft = ['python']
+
+[[plugins]]
+repo = 'sharat87/roast.vim'
+on_ft = ['roast']
+
+[[plugins]]
+repo = 'iamcco/markdown-preview.nvim'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+build = 'sh -c "cd app && yarn install"'
+
+[[plugins]]
+repo = 'puremourning/vimspector'
+on_ft = ['python', 'javascript', 'typescript']
+build = './install_gadget.py --enable-python --force-enable-node'
+hook_add = '''
+lua << EOF
+  vim.g.vimspector_enable_mappings = 'VISUAL_STUDIO'
+  vim.api.nvim_set_keymap('n', '<F3>', ':VimspectorReset<CR>', { noremap = true, silent = true })
+EOF
+'''
+[[plugins]]
+repo = 'plasticboy/vim-markdown'
+on_ft = ['markdown', 'pandoc.markdown', 'rmd']
+hook_add = '''
+lua << EOF
+  vim.g.vim_markdown_conceal = 0
+  vim.g.vim_markdown_folding_disabled = 1
+EOF
+'''
