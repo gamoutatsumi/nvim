@@ -15,7 +15,6 @@ local opts = {
   guicursor = vim.o.guicursor..',a:blinkon0',
   encoding = 'utf-8',
   undodir = vim.env.HOME..'/.local/share/nvim/backup',
-  undofile = true
 }
 
 local wopts = {
@@ -30,7 +29,8 @@ local bopts = {
   smartindent = true,
   tabstop = 2,
   shiftwidth = 2,
-  expandtab = true
+  expandtab = true,
+  undofile = true
 }
 
 for opt, val in pairs(opts) do

@@ -29,6 +29,7 @@ EOF
 
 [[plugins]]
 repo = 'machakann/vim-sandwich'
+
 [[plugins]]
 repo = 'mhinz/vim-signify'
 
