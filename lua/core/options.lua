@@ -15,6 +15,7 @@ local opts = {
   guicursor = vim.o.guicursor..',a:blinkon0',
   encoding = 'utf-8',
   undodir = vim.env.HOME..'/.local/share/nvim/backup',
+  termguicolors = true
 }
 
 local wopts = {

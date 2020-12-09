@@ -5,7 +5,6 @@ repo = 'Shougo/dein.vim'
 repo = 'bluz71/vim-nightfly-guicolors'
 hook_add = '''
 lua << EOF
-  vim.o.termguicolors = true
   vim.cmd('au MyAutoCmd VimEnter * nested colorscheme nightfly')
   vim.g.airline_theme = 'nightfly'
 EOF
