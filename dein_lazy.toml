@@ -30,6 +30,7 @@ lua << EOF
   vim.api.nvim_set_keymap('n', '<F3>', ':VimspectorReset<CR>', { noremap = true, silent = true })
 EOF
 '''
+
 [[plugins]]
 repo = 'plasticboy/vim-markdown'
 on_ft = ['markdown', 'pandoc.markdown', 'rmd']

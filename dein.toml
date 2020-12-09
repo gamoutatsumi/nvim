@@ -155,7 +155,8 @@ lua << EOF
     'hunks',
     'fern',
     'whitespace',
-    'coc'
+    'coc',
+    'fugitiveline'
   }
 
   -- unicode symbols
