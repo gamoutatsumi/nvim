@@ -50,4 +50,4 @@ end
 
 SetOptions()
 
-vim.cmd('autocmd BufEnter * lua SetOptions()')
+vim.cmd('autocmd FileType * lua SetOptions()')

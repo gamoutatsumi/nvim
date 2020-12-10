@@ -11,9 +11,6 @@ EOF
 '''
 
 [[plugins]]
-repo = 'tpope/vim-fugitive'
-
-[[plugins]]
 repo = 'osyo-manga/vim-anzu'
 hook_add = '''
 lua << EOF
@@ -159,8 +156,7 @@ lua << EOF
     'hunks',
     'fern',
     'whitespace',
-    'coc',
-    'fugitiveline'
+    'coc'
   }
 
   -- unicode symbols
@@ -267,6 +263,7 @@ lua << EOF
     vim.api.nvim_buf_set_keymap(0, 'n', 'q', ':<C-u>quit<CR>', { silent = true, nowait = true })
     vim.api.nvim_buf_set_keymap(0, 'n', 'Q', ':<C-u>bwipe!<CR>', { silent = true, nowait = true, noremap = true })
     vim.wo.number = false
+    vim.wo.signcolumn = 'no'
     vim.wo.relativenumber = false
   end
   vim.cmd('autocmd FileType fern lua FernSettings()')
@@ -356,3 +353,6 @@ repo = 'norcalli/nvim-colorizer.lua'
 hook_add = '''
 lua require'colorizer'.setup()
 '''
+
+[[plugins]]
+repo = 'lambdalisue/gina.vim'
