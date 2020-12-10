@@ -105,9 +105,9 @@ lua << EOF
     'coc-fzf-preview',
     'coc-marketplace',
     'coc-discord-neovim',
-    'coc-rls',
     'coc-markdownlint',
-    'coc-lua'
+    'coc-lua',
+    'coc-rust-analyzer'
   }
   vim.api.nvim_set_keymap( 'i', '<Tab>', 'pumvisible() ? "<C-n>" : "<Tab>"', { silent = true, expr = true })
   vim.api.nvim_set_keymap( 'i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { silent = true, expr = true })
