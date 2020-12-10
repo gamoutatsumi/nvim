@@ -17,11 +17,11 @@ repo = 'tpope/vim-fugitive'
 repo = 'osyo-manga/vim-anzu'
 hook_add = '''
 lua << EOF
-  vim.api.nvim_set_keymap( 'n', 'n', 'nzz<Plug>(anzu-update-search-status)', {} )
-  vim.api.nvim_set_keymap( 'n', 'N', 'Nzz<Plug>(anzu-update-search-status)', {} )
-  vim.api.nvim_set_keymap( 'n', '*', '<Plug>(anzu-star)', {} )
-  vim.api.nvim_set_keymap( 'n', '#', '<Plug>(anzu-sharp)', {} )
-  vim.api.nvim_set_keymap( 'n', '<Esc><Esc>', ':<C-u>nohlsearch<CR><Plug>(anzu-clear-search-status)', { silent = true } )
+  vim.api.nvim_set_keymap('n', 'n', 'nzz<Plug>(anzu-update-search-status)', {})
+  vim.api.nvim_set_keymap('n', 'N', 'Nzz<Plug>(anzu-update-search-status)', {})
+  vim.api.nvim_set_keymap('n', '*', '<Plug>(anzu-star)', {})
+  vim.api.nvim_set_keymap('n', '#', '<Plug>(anzu-sharp)', {})
+  vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':<C-u>nohlsearch<CR><Plug>(anzu-clear-search-status)', { silent = true })
   vim.g.anzu_status_format = '(%i/%l)'
 EOF
 '''
@@ -39,20 +39,24 @@ repo = 'thinca/vim-quickrun'
 repo = 'osyo-manga/vim-precious'
 depends = ['context_filetype.vim']
 hook_add = '''
-let g:precious_enable_switchers = {
-      \ "vue" : {
-      \   "setfiletype": 0
-      \},
-      \ "*" :{
-      \   "setfiletype": 1
-      \ }
-      \}
-augroup VimPrecious
-  au!
-  autocmd InsertEnter * PreciousSwitch
-  autocmd InsertLeave * PreciousReset
-augroup END
-autocmd User PreciousFileType_vim :TSBufDisable highlight
+lua << EOF
+local precious_enable_switchers = {
+  vue = {
+    setfiletype = 0
+  }
+}
+precious_enable_switchers['*'] = {
+  setfiletype = 1
+}
+vim.api.nvim_set_var('precious_enable_switchers', precious_enable_switchers)
+
+vim.cmd('augroup VimPrecious')
+vim.cmd('autocmd!')
+vim.cmd('autocmd InsertEnter * PreciousSwitch')
+vim.cmd('autocmd InsertLeave * PreciousReset')
+vim.cmd('augroup END')
+vim.cmd('autocmd User PreciousFileType_vim :TSBufDisable highlight')
+EOF
 '''
 
 [[plugins]]
