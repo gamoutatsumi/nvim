@@ -339,7 +339,7 @@ hook_post_source = '''
 lua << EOF
   require'nvim-treesitter.configs'.setup {
     -- Modules and its options go here
-    ensure_installed = { 'python', 'lua', 'typescript', 'tsx', 'yaml', 'json', 'rust', 'html' },
+    ensure_installed = { 'python', 'lua', 'typescript', 'tsx', 'yaml', 'json', 'rust', 'html', 'go' },
     highlight = { enable = true },
     incremental_selection = { enable = true },
     textobjects = { enable = true },
