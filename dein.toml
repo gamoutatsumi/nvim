@@ -149,7 +149,6 @@ lua << EOF
   vim.g['airline#extensions#tabline#buffer_idx_mode'] = 1
   vim.g['airline#extensions#whitespace#mixed_indent_algo'] = 1
   vim.g.airline_extensions = {
-    'webdevicons',
     'branch',
     'anzu',
     'tabline',
