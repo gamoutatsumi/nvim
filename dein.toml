@@ -95,7 +95,8 @@ rev = 'release'
 hook_add = '''
 lua << EOF
   vim.o.completeopt = 'menuone,noselect,noinsert'
-  vim.bo.tagfunc = 'CocTagFunc'
+  --vim.bo.tagfunc = 'CocTagFunc'
+  vim.cmd('set tagfunc=CocTagFunc')
   vim.env.NVIM_COC_LOG_LEVEL = 'error'
   vim.g.coc_global_extensions = {
     'coc-pairs',
@@ -106,8 +107,8 @@ lua << EOF
     'coc-marketplace',
     'coc-discord-neovim',
     'coc-markdownlint',
-    'coc-lua',
-    'coc-rust-analyzer'
+    'coc-rust-analyzer',
+    'coc-go'
   }
   vim.api.nvim_set_keymap( 'i', '<Tab>', 'pumvisible() ? "<C-n>" : "<Tab>"', { silent = true, expr = true })
   vim.api.nvim_set_keymap( 'i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { silent = true, expr = true })
@@ -355,3 +356,6 @@ lua require'colorizer'.setup()
 
 [[plugins]]
 repo = 'lambdalisue/gina.vim'
+
+[[plugins]]
+repo = 'rust-lang/rust.vim'
