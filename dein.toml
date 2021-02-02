@@ -313,4 +313,9 @@ repo = 'skanehira/gyazo.vim'
 
 [[plugins]]
 repo = 'skanehira/badapple.vim'
->>>>>>> e2328b1 (update)
+
+[[plugins]]
+repo = 'tyru/eskk.vim'
+hook_add = '''
+lua require('plugins.eskk')
+'''
