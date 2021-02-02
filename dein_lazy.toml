@@ -40,3 +40,23 @@ lua << EOF
   vim.g.vim_markdown_folding_disabled = 1
 EOF
 '''
+
+[[plugins]]
+on_ft = ['tjs']
+repo = 'vim-scripts/tjs.vim'
+
+[[plugins]]
+on_ft = ['rust']
+repo = 'rust-lang/rust.vim'
+
+[[plugins]]
+repo = 'tyru/eskk.vim'
+on_i = true
+hook_source = '''
+lua require('eskk')
+'''
+
+[[plugins]]
+repo = 'hashivim/vim-terraform'
+on_ft = ['tf']
+

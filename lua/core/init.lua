@@ -10,7 +10,8 @@ vim.cmd('syntax off')
 local vars = {
   python_host_prog = '/usr/bin/python2',
   python3_host_prog = '/usr/bin/python3',
-  loaded_matchparen = 1
+  loaded_matchparen = 1,
+  vimsyn_embed = 1
 }
 
 for var, val in pairs(vars) do

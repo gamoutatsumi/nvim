@@ -2,6 +2,18 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
+repo = 'kevinhwang91/nvim-hlslens'
+hook_add = '''
+noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>
+noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>
+noremap * *<Cmd>lua require('hlslens').start()<CR>
+noremap # #<Cmd>lua require('hlslens').start()<CR>
+noremap g* g*<Cmd>lua require('hlslens').start()<CR>
+noremap g# g#<Cmd>lua require('hlslens').start()<CR>
+nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
+'''
+
+[[plugins]]
 repo = 'bluz71/vim-nightfly-guicolors'
 hook_add = '''
 lua << EOF
@@ -11,53 +23,52 @@ EOF
 '''
 
 [[plugins]]
-repo = 'osyo-manga/vim-anzu'
+repo = 'machakann/vim-sandwich'
 hook_add = '''
 lua << EOF
-  vim.api.nvim_set_keymap('n', 'n', 'nzz<Plug>(anzu-update-search-status)', {})
-  vim.api.nvim_set_keymap('n', 'N', 'Nzz<Plug>(anzu-update-search-status)', {})
-  vim.api.nvim_set_keymap('n', '*', '<Plug>(anzu-star)', {})
-  vim.api.nvim_set_keymap('n', '#', '<Plug>(anzu-sharp)', {})
-  vim.api.nvim_set_keymap('n', '<Esc><Esc>', ':<C-u>nohlsearch<CR><Plug>(anzu-clear-search-status)', { silent = true })
-  vim.g.anzu_status_format = '(%i/%l)'
+  vim.api.nvim_set_var('sandwitch_no_default_key_mappings', 1)
+  vim.api.nvim_set_var('operator_sandwitch_no_default_key_mappings', 1)
+  vim.api.nvim_set_keymap('n', 'ys', '<Plug>(operator-sandwich-add)', { silent = true })
+  vim.api.nvim_set_keymap('n', 'ds', '<Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)', { silent = true })
+  vim.api.nvim_set_keymap('n', 'cs', '<Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)', { silent = true })
 EOF
 '''
 
 [[plugins]]
-repo = 'machakann/vim-sandwich'
-
-[[plugins]]
-repo = 'mhinz/vim-signify'
+repo = 'lewis6991/gitsigns.nvim'
+hook_add = '''
+lua require('gitsigns').setup()
+'''
 
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 
-[[plugins]]
-repo = 'osyo-manga/vim-precious'
-depends = ['context_filetype.vim']
-hook_add = '''
-lua << EOF
-local precious_enable_switchers = {
-  vue = {
-    setfiletype = 0
-  }
-}
-precious_enable_switchers['*'] = {
-  setfiletype = 1
-}
-vim.api.nvim_set_var('precious_enable_switchers', precious_enable_switchers)
+#[[plugins]]
+#repo = 'osyo-manga/vim-precious'
+#depends = ['context_filetype.vim']
+#hook_add = '''
+#lua << EOF
+#local precious_enable_switchers = {
+  #vue = {
+    #setfiletype = 0
+  #}
+#}
+#precious_enable_switchers['*'] = {
+  #setfiletype = 1
+#}
+#vim.api.nvim_set_var('precious_enable_switchers', precious_enable_switchers)
 
-vim.cmd('augroup VimPrecious')
-vim.cmd('autocmd!')
-vim.cmd('autocmd InsertEnter * PreciousSwitch')
-vim.cmd('autocmd InsertLeave * PreciousReset')
-vim.cmd('augroup END')
-vim.cmd('autocmd User PreciousFileType_vim :TSBufDisable highlight')
-EOF
-'''
+#vim.cmd('augroup VimPrecious')
+#vim.cmd('autocmd!')
+#vim.cmd('autocmd InsertEnter * PreciousSwitch')
+#vim.cmd('autocmd InsertLeave * PreciousReset')
+#vim.cmd('augroup END')
+#vim.cmd('autocmd User PreciousFileType_vim :TSBufDisable highlight')
+#EOF
+#'''
 
-[[plugins]]
-repo = 'Shougo/context_filetype.vim'
+#[[plugins]]
+#repo = 'Shougo/context_filetype.vim'
 
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
@@ -72,18 +83,6 @@ EOF
 '''
 
 [[plugins]]
-repo = 'sheerun/vim-polyglot'
-hook_add = '''
-lua << EOF
-  vim.g.polyglot_disabled = {
-    'markdown',
-    'python'
-  }
-  vim.g.vim_json_syntax_conceal = 0
-EOF
-'''
-
-[[plugins]]
 repo = 'scrooloose/nerdcommenter'
 
 [[plugins]]
@@ -93,43 +92,7 @@ repo = 'editorconfig/editorconfig-vim'
 repo = 'neoclide/coc.nvim'
 rev = 'release'
 hook_add = '''
-lua << EOF
-  vim.o.completeopt = 'menuone,noselect,noinsert'
-  --vim.bo.tagfunc = 'CocTagFunc'
-  vim.cmd('set tagfunc=CocTagFunc')
-  vim.env.NVIM_COC_LOG_LEVEL = 'error'
-  vim.g.coc_global_extensions = {
-    'coc-pairs',
-    'coc-snippets',
-    'coc-json',
-    'coc-yaml',
-    'coc-fzf-preview',
-    'coc-marketplace',
-    'coc-discord-neovim',
-    'coc-markdownlint',
-    'coc-rust-analyzer',
-    'coc-go'
-  }
-  vim.api.nvim_set_keymap( 'i', '<Tab>', 'pumvisible() ? "<C-n>" : "<Tab>"', { silent = true, expr = true })
-  vim.api.nvim_set_keymap( 'i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { silent = true, expr = true })
-  vim.api.nvim_set_keymap( 'n', 'gd', ':vsp<CR><Plug>(coc-definition)', { silent = true })
-  vim.api.nvim_set_keymap( 'n', 'gy', ':<Plug>(coc-type-definition)', { silent = true })
-  vim.api.nvim_set_keymap( 'n', 'gi', ':<Plug>(coc-implementation)', { silent = true })
-  vim.api.nvim_set_keymap( 'n', 'gr', ':<Plug>(coc-references)', { silent = true })
-  vim.api.nvim_set_keymap( 'n', '[g', '<Plug>(coc-diagnostic-prev)', { silent = true })
-  vim.api.nvim_set_keymap( 'n', 'g]', '<Plug>(coc-diagnostic-next)', { silent = true })
-  vim.api.nvim_set_keymap( 'n', 'K', ':lua ShowCocDocumentation()<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap( 'i', '<CR>', 'pumvisible() ? coc#_select_confirm() : "<C-g>u<CR><C-r>=coc#on_enter()<CR>"', { silent = true, noremap = true, expr = true })
-  vim.api.nvim_buf_set_keymap( 0, 'i', '<Esc>', 'pumvisible() ? "<C-e>" : "<Esc>"', { silent = true, nowait = true, expr = true })
-  function ShowCocDocumentation()
-    if (vim.fn.index({ 'vim', 'help' }, vim.bo.filetype) >= 0) then
-      vim.cmd('execute "h ".expand("<cword>")')
-    else
-      vim.fn['CocAction']('doHover')
-    end
-  end
-  vim.cmd('autocmd CursorHold * silent call CocActionAsync("highlight")')
-EOF
+lua require('plugins.coc')
 '''
 
 [[plugins]]
@@ -140,58 +103,9 @@ repo = 'antoinemadec/coc-fzf'
 rev = 'release'
 
 [[plugins]]
-repo = 'vim-airline/vim-airline'
-depends = ['vim-devicons']
+repo = 'glepnir/galaxyline.nvim'
 hook_add = '''
-lua << EOF
-  --use Powerline
-  vim.o.laststatus = 2
-  vim.g.airline_powerline_fonts = 1
-  vim.g['airline#extensions#tabline#buffer_idx_mode'] = 1
-  vim.g['airline#extensions#whitespace#mixed_indent_algo'] = 1
-  vim.g.airline_extensions = {
-    'branch',
-    'anzu',
-    'tabline',
-    'hunks',
-    'fern',
-    'whitespace',
-    'coc'
-  }
-
-  -- unicode symbols
-  vim.g.airline_symbols = {
-    paste = '∥',
-    spell = 'Ꞩ',
-    notexists = '∄',
-    whitespace = 'Ξ',
-    branch = '',
-    readonly = '',
-    linenr = '☰ ',
-    maxlinenr = ''
-  }
-
-  vim.g.airline_left_sep = ''
-  vim.g.airline_left_alt_sep = ''
-  vim.g.airline_right_sep = ''
-  vim.g.airline_right_alt_sep = ''
-EOF
-'''
-
-[[plugins]]
-repo = 'liuchengxu/vista.vim'
-hook_add = '''
-lua << EOF
-  vim.api.nvim_set_keymap( 'n', '<C-f><C-v>', ':<C-u>Vista<CR>', { silent = true } )
-  vim.api.nvim_set_keymap( 'n', '<C-f><C-s>', ':<C-u>Vista finder<CR>', { silent = true } )
-  vim.g.vista_default_executive = 'coc'
-  vim.g['vista#renderer#enable_icon'] = 1
-  vim.g.vista_icon_indent = {
-    '╰─▸ ',
-    '├─▸ '
-  }
-  vim.cmd('autocmd VimEnter,BufWinEnter * call vista#RunForNearestMethodOrFunction()')
-EOF
+lua require('plugins.galaxyline_setting')
 '''
 
 [[plugins]]
@@ -210,7 +124,7 @@ EOF
 #repo = 'edkolev/tmuxline.vim'
 #hook_add = '''
 #let g:tmuxline_preset = {
-  #\ 'a': '#S',
+  #\ 'a': '[#S:#I:#P]',
   #\ 'win': ['#I', '#{?#{m:ssh,#W},#{ssh-host},#W} #F'],
   #\ 'cwin': ['#I','#{?#{m:ssh,#W},#{ssh-host},#W} #F'],
   #\ 'y': ['%Y-%m-%d', '%H:%M'],
@@ -228,47 +142,7 @@ EOF
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
 hook_add = '''
-lua << EOF
-  vim.g['fern#drawer_width'] = 30
-  vim.g['fern#renderer'] = 'nerdfont'
-  vim.g['fern#renderer#nerdfont#padding'] = '  '
-  vim.g['fern#disable_default_mappings'] = 1
-  vim.g['fern#smart_cursor'] = 'stick'
-  vim.g['fern#default_hidden'] = 1
-  vim.api.nvim_set_keymap('n', '<C-e>', ':<C-u>Fern . -drawer -reveal=% -toggle<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<Plug>(fern-close-drawer)', ':<C-u>FernDo close -drawer -stay<CR>', { silent = true, noremap = true })
-  function FernSettings()
-    vim.api.nvim_set_keymap('n', '<Plug>(fern-action-open-and-close)', '<Plug>(fern-action-open:select) <Plug>(fern-close-drawer)', { silent = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', '<Plug>(fern-expand-or-collapse)', 'fern#smart#leaf("<Plug>(fern-action-collapse)", "<Plug>(fern-action-expand)", "<Plug>(fern-action-collapse)")', { silent = true, nowait = true, expr = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 'a', '<Plug>(fern-choice)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 't', '<Plug>(fern-expand-or-collapse)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', '<CR>', '<Plug>(fern-action-open-and-close)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 'o', '<Plug>(fern-action-open-and-close)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 'l', '<Plug>(fern-action-expand)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 'h', '<Plug>(fern-action-collapse)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 'x', '<Plug>(fern-action-mark:toggle)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'v', 'x', '<Plug>(fern-action-mark:toggle)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 'N', '<Plug>(fern-action-new-file)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 'K', '<Plug>(fern-action-new-dir)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 'd', '<Plug>(fern-action-trash)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 'r', '<Plug>(fern-action-rename)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 'c', '<Plug>(fern-action-copy)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 'm', '<Plug>(fern-action-move)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', '!', '<Plug>(fern-action-hidden-toggle)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', '<C-g>', '<Plug>(fern-action-debug)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', '?', '<Plug>(fern-action-help)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', '<C-c>', '<Plug>(fern-action-cancel)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', '.', '<Plug>(fern-action-repeat)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 'R', '<Plug>(fern-action-redraw)', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 'q', ':<C-u>quit<CR>', { silent = true, nowait = true })
-    vim.api.nvim_buf_set_keymap(0, 'n', 'Q', ':<C-u>bwipe!<CR>', { silent = true, nowait = true, noremap = true })
-    vim.wo.number = false
-    vim.wo.signcolumn = 'no'
-    vim.wo.relativenumber = false
-  end
-  vim.cmd('autocmd FileType fern lua FernSettings()')
-  vim.cmd('autocmd FileType fern call glyph_palette#apply()')
-EOF
+lua require('plugins.fern')
 '''
 
 [[plugins]]
@@ -311,17 +185,12 @@ repo = 'koron/nyancat-vim'
 
 [[plugins]]
 repo = 'wakatime/vim-wakatime'
-hook_add = '''
-lua << EOF
-  vim.g.wakatime_PythonBinary = '/usr/bin/python'
-EOF
-'''
 
 [[plugins]]
 repo = 'mbbill/undotree'
 hook_add = '''
 lua << EOF
-  vim.api.nvim_set_keymap('n', '<Leader>u', ':UndotreeToggle<CR>', { noremap = true })
+  vim.api.nvim_set_keymap('n', '<Leader>u', '<cmd>UndotreeToggle<CR>', { noremap = true })
 EOF
 '''
 
@@ -335,17 +204,8 @@ EOF
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
-hook_post_source = '''
-lua << EOF
-  require'nvim-treesitter.configs'.setup {
-    -- Modules and its options go here
-    ensure_installed = { 'python', 'lua', 'typescript', 'tsx', 'yaml', 'json', 'rust', 'html', 'go' },
-    highlight = { enable = true },
-    incremental_selection = { enable = true },
-    textobjects = { enable = true },
-    rainbow = { enable = true }
-  }
-EOF
+hook_add = '''
+lua require('plugins.treesitter_setting')
 '''
 
 [[plugins]]
@@ -358,4 +218,99 @@ lua require'colorizer'.setup()
 repo = 'lambdalisue/gina.vim'
 
 [[plugins]]
-repo = 'rust-lang/rust.vim'
+repo = 'bellflower2015/vim-syntax-tyranoscript'
+
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+hook_add = '''
+lua << EOF
+  vim.api.nvim_set_keymap('n', '<C-o>', '<cmd>Deol -split=otherwise -toggle -winheight=10<CR>', { noremap = true, silent = true })
+  vim.api.nvim_set_keymap('t', '<ESC>', '<C-\\><C-n>', { noremap = true })
+EOF
+'''
+
+[[plugins]]
+repo = 'romgrk/nvim-treesitter-context'
+
+[[plugins]]
+repo = 'kyazdani42/nvim-web-devicons'
+
+[[plugins]]
+repo = 'romgrk/barbar.nvim'
+hook_add = '''
+lua << EOF
+  vim.api.nvim_set_keymap('n', '<C-s>', '<cmd>BufferPick<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<leader>bd', '<cmd>BufferOrderByDirectory<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<leader>bl', '<cmd>BufferOrderByLanguage<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<S-TAB>', '<cmd>BufferPrevious<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<TAB>', '<cmd>BufferNext<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<A-<>', '<cmd>BufferMovePrevious<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<A->>', '<cmd>BufferMoveNext<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<A-1>', '<cmd>BufferGoto 1<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<A-2>', '<cmd>BufferGoto 2<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<A-3>', '<cmd>BufferGoto 3<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<A-4>', '<cmd>BufferGoto 4<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<A-5>', '<cmd>BufferGoto 5<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<A-6>', '<cmd>BufferGoto 6<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<A-7>', '<cmd>BufferGoto 7<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<A-8>', '<cmd>BufferGoto 8<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<A-9>', '<cmd>BufferLast<CR>', { silent = true, noremap = true })
+  vim.api.nvim_set_keymap('n', '<A-c>', '<cmd>BufferClose<CR>', { silent = true, noremap = true })
+EOF
+'''
+
+[[plugins]]
+repo = 'AndrewRadev/switch.vim'
+
+[[plugins]]
+repo = 'monaqa/dial.nvim'
+hook_add = '''
+lua << EOF
+  vim.api.nvim_set_keymap('n', '<C-a>', '<Plug>(dial-increment)', { silent = true , noremap = false })
+  vim.api.nvim_set_keymap('n', '<C-x>', '<Plug>(dial-decrement)', { silent = true , noremap = false })
+EOF
+'''
+
+[[plugins]]
+repo = 'Shougo/denite.nvim'
+hook_add = '''
+autocmd FileType denite call s:denite_my_settings()
+function! s:denite_my_settings() abort
+  nnoremap <silent><buffer><expr> <CR> denite#do_map('do_action')
+  nnoremap <silent><buffer><expr> d denite#do_map('do_action', 'delete')
+  nnoremap <silent><buffer><expr> p denite#do_map('do_action', 'preview')
+  nnoremap <silent><buffer><expr> q denite#do_map('quit')
+  nnoremap <silent><buffer><expr> i denite#do_map('open_fileter_buffer')
+  nnoremap <silent><buffer><expr> <Space> denite#do_map('toggle_select').'j'
+endfunction
+'''
+
+[[plugins]]
+repo = 'christoomey/vim-tmux-navigator'
+
+[[plugins]]
+repo = 'nvim-lua/popup.nvim'
+
+[[plugins]]
+repo = 'nvim-lua/plenary.nvim'
+
+[[plugins]]
+repo = 'nvim-telescope/telescope.nvim'
+hook_add = '''
+lua << EOF
+  vim.api.nvim_set_keymap('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', { noremap = true })
+  vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep()<CR>', { noremap = true })
+  vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers()<CR>', { noremap = true })
+  vim.api.nvim_set_keymap('n', '<leader>fh', '<cmd>lua require("telescope.builtin").help_tags()<CR>', { noremap = true })
+EOF
+'''
+
+[[plugins]]
+repo = 'nvim-treesitter/nvim-treesitter-refactor'
+
+[[plugins]]
+repo = 'skanehira/gyazo.vim'
+
+[[plugins]]
+repo = 'skanehira/badapple.vim'
+>>>>>>> e2328b1 (update)
