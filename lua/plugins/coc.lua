@@ -14,8 +14,9 @@ vim.g.coc_global_extensions = {
   'https://github.com/rodrigore/coc-tailwind-intellisense',
   'coc-stylelint',
   'coc-html',
-  'coc-jedi',
-  'coc-docker'
+  'coc-docker',
+  'coc-vetur',
+  'coc-pyright'
 }
 vim.api.nvim_set_keymap( 'i', '<Tab>', 'pumvisible() ? "<C-n>" : "<Tab>"', { silent = true, expr = true })
 vim.api.nvim_set_keymap( 'i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { silent = true, expr = true })

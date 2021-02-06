@@ -26,6 +26,23 @@ local buffer_not_empty = function()
   return false
 end
 
+local eskk_enabled = function()
+  if vim.fn.exists('g:loaded_eskk') == 1 and vim.g.loaded_eskk == 1 then
+    return true
+  end
+  return false
+end
+
+local provider_eskk_mode = function()
+  if not eskk_enabled() and vim.fn.exists('b:eskk_status') ~= 1 then
+    vim.api.nvim_buf_set_var(0, 'eskk_status', '')
+    return vim.api.nvim_buf_get_var(0, 'eskk_status')
+  else
+    vim.api.nvim_buf_set_var(0, 'eskk_status', vim.fn['eskk#statusline']())
+  end
+  return vim.api.nvim_buf_get_var(0, 'eskk_status')
+end
+
 gls.left[1] = {
   FirstElement = {
     provider = function() return ' ' end,
@@ -35,7 +52,7 @@ gls.left[1] = {
 gls.left[2] = {
   ViMode = {
     provider = function()
-      local alias = { n = 'NORMAL', i = 'INSERT', c= 'COMMAND', V= 'L-VISUAL', [''] = 'B-VISUAL', v = 'VISUAL' }
+      local alias = { n = 'NORMAL', i = 'INSERT', c= 'COMMAND', V= 'L-VISUAL', [''] = 'B-VISUAL', v = 'VISUAL', s = 'SELECT' }
       return alias[vim.fn.mode()] .. ' '
     end,
     separator = ' ',
@@ -83,6 +100,13 @@ gls.left[7] = {
     highlight = { colors.white, colors.slateblue },
   }
 }
+
+--gls.left[8] = {
+  --EskkStatus = {
+    --provider = function() return provider_eskk_mode() end,
+    --highlight = { colors.white, colors.slateblue },
+  --}
+--}
 
 gls.left[8] = {
   FileName = {
@@ -158,23 +182,15 @@ gls.right[7] = {
 gls.right[8] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
-    icon = 'W:',
+    icon = ' W:',
     highlight = { colors.white, colors.slateblue },
   }
 }
 
 gls.right[9] = {
-  DiagnosticWarn = {
+  DiagnosticHint = {
     provider = 'DiagnosticHint',
-    icon = 'H:',
-    highlight = { colors.white, colors.slateblue },
-  }
-}
-
-gls.right[10] = {
-  DiagnosticWarn = {
-    provider = 'DiagnosticInfo',
-    icon = 'I:',
+    icon = ' H:',
     highlight = { colors.white, colors.slateblue },
   }
 }

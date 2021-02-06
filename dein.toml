@@ -315,7 +315,30 @@ repo = 'skanehira/gyazo.vim'
 repo = 'skanehira/badapple.vim'
 
 [[plugins]]
-repo = 'tyru/eskk.vim'
+repo = 'glepnir/indent-guides.nvim'
 hook_add = '''
-lua require('plugins.eskk')
+lua << EOF
+  require('indent_guides').setup({
+    indent_levels = 30;
+    indent_guide_size = 1;
+    indent_start_level = 1;
+    indent_space_guides = true;
+    indent_tab_guides = false;
+    indent_soft_pattern = '\\s';
+    exclude_filetypes = {'help','dashboard','dashpreview','NvimTree','vista','sagahover'};
+    even_colors = { fg ='#2E323A',bg='#34383F' };
+    odd_colors = {fg='#34383F',bg='#2E323A'};
+  })
+EOF
 '''
+
+[[plugins]]
+repo = 'vim-jp/vital.vim'
+merged = 0
+
+[[plugins]]
+repo = 'lambdalisue/vital-Whisky'
+merged = 0
+
+#[[plugins]]
+#repo = '~/Repositories/github.com/skanehira/docker.vim'
