@@ -2,7 +2,13 @@ local server = {
   host = 'localhost',
   port = 1178
 }
+local large_dictionary = {
+  path = "/usr/share/skk/SKK-JISYO.L",
+  sorted = 1,
+  encoding = 'euc-jp',
+}
 vim.api.nvim_set_var('eskk#server', server)
+vim.api.nvim_set_var('eskk#large_dictionary', large_dictionary)
 vim.api.nvim_set_var('eskk#enable_completion', 0)
 vim.api.nvim_set_var('eskk#tab_select_completion', 1)
 vim.api.nvim_set_var('eskk#keep_state', 1)

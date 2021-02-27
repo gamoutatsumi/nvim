@@ -21,17 +21,6 @@ on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 build = 'sh -c "cd app && yarn install"'
 
 [[plugins]]
-repo = 'puremourning/vimspector'
-on_ft = ['python', 'javascript', 'typescript']
-build = './install_gadget.py --enable-python --force-enable-node'
-hook_add = '''
-lua << EOF
-  vim.g.vimspector_enable_mappings = 'VISUAL_STUDIO'
-  vim.api.nvim_set_keymap('n', '<F3>', ':VimspectorReset<CR>', { noremap = true, silent = true })
-EOF
-'''
-
-[[plugins]]
 repo = 'plasticboy/vim-markdown'
 on_ft = ['markdown', 'pandoc.markdown', 'rmd']
 hook_add = '''
@@ -51,7 +40,7 @@ repo = 'rust-lang/rust.vim'
 
 [[plugins]]
 repo = 'hashivim/vim-terraform'
-on_ft = ['tf']
+on_ft = ['terraform']
 
 [[plugins]]
 repo = 'tyru/eskk.vim'

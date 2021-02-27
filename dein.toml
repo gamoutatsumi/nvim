@@ -83,9 +83,6 @@ EOF
 '''
 
 [[plugins]]
-repo = 'scrooloose/nerdcommenter'
-
-[[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
@@ -314,23 +311,23 @@ repo = 'skanehira/gyazo.vim'
 [[plugins]]
 repo = 'skanehira/badapple.vim'
 
-[[plugins]]
-repo = 'glepnir/indent-guides.nvim'
-hook_add = '''
-lua << EOF
-  require('indent_guides').setup({
-    indent_levels = 30;
-    indent_guide_size = 1;
-    indent_start_level = 1;
-    indent_space_guides = true;
-    indent_tab_guides = false;
-    indent_soft_pattern = '\\s';
-    exclude_filetypes = {'help','dashboard','dashpreview','NvimTree','vista','sagahover'};
-    even_colors = { fg ='#2E323A',bg='#34383F' };
-    odd_colors = {fg='#34383F',bg='#2E323A'};
-  })
-EOF
-'''
+# [[plugins]]
+# repo = 'glepnir/indent-guides.nvim'
+# hook_add = '''
+# lua << EOF
+#   require('indent_guides').setup({
+#     indent_levels = 30;
+#     indent_guide_size = 1;
+#     indent_start_level = 1;
+#     indent_space_guides = true;
+#     indent_tab_guides = false;
+#     indent_soft_pattern = '\\s';
+#     exclude_filetypes = {'help','dashboard','dashpreview','NvimTree','vista','sagahover','fern'};
+#     even_colors = { fg ='#2E323A',bg='#34383F' };
+#     odd_colors = {fg='#34383F',bg='#2E323A'};
+#   })
+# EOF
+# '''
 
 [[plugins]]
 repo = 'vim-jp/vital.vim'
@@ -340,5 +337,60 @@ merged = 0
 repo = 'lambdalisue/vital-Whisky'
 merged = 0
 
-#[[plugins]]
-#repo = '~/Repositories/github.com/skanehira/docker.vim'
+[[plugins]]
+repo = 'mmisono/viminesweeper'
+
+[[plugins]]
+repo = 'vim-jp/vimdoc-ja'
+hook_add = '''
+  set helplang=ja,en
+'''
+
+[[plugins]]
+repo = 'mfussenegger/nvim-dap'
+
+[[plugins]]
+repo = 'phaazon/hop.nvim'
+hook_add = '''
+nmap $ <cmd>lua require'hop'.jump_words()<CR>
+'''
+
+[[plugins]]
+repo = 'segeljakt/vim-silicon'
+hook_add = '''
+lua << EOF
+  local silicon = {}
+  silicon['theme'] = 'Dracula'
+  silicon['font'] = 'HackGen'
+  silicon['background'] = '#AAAAFF'
+  silicon['shadow-color'] = '#555555'
+  silicon['line-pad'] = 2
+  silicon['pad-horiz'] = 80
+  silicon['pad-vert'] = 10
+  silicon['shadow-blur-radius'] = 0
+  silicon['shadow-offset-x'] = 0
+  silicon['shadow-offset-y'] = 0
+  silicon['line-number'] = true
+  silicon['round-corner'] = true
+  silicon['window-controls'] = true
+  silicon['output'] = '~/Pictures/silicon-{time:%Y-%m-%d-%H%M%S}.png'
+  vim.api.nvim_set_var('silicon', silicon)
+EOF
+'''
+
+[[plugins]]
+repo = 'b3nj5m1n/kommentary'
+hook_post_source = '''
+lua << EOF
+  require('kommentary.config').configure_language("typescriptreact", {
+    single_line_comment_string = "//",
+    multi_line_comment_strings = {"{/*", "*/}"}
+  })
+EOF
+'''
+
+[[plugins]]
+repo = 'vim-denops/denops.vim'
+
+[[plugins]]
+repo = 'gamoutatsumi/denops-ojichat.vim'

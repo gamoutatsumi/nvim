@@ -26,5 +26,16 @@
     }
   },
   "rust-analyzer.cargo.loadOutDirsFromCheck": true,
-  "rust-analyzer.procMacro.enable": true
+  "rust-analyzer.procMacro.enable": true,
+  "tsserver.enable": false,
+  "deno.enable": false,
+  "deno.unstable": true,
+  "cSpell.userWords": [
+    "Deno",
+    "Neovim",
+    "denops",
+    "msgpack",
+    "ojichat",
+    "webp"
+  ]
 }

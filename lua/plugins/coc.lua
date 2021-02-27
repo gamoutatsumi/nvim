@@ -16,7 +16,10 @@ vim.g.coc_global_extensions = {
   'coc-html',
   'coc-docker',
   'coc-vetur',
-  'coc-pyright'
+  'coc-pyright',
+  'coc-denoland',
+  'coc-emoji',
+  'coc-spell-checker'
 }
 vim.api.nvim_set_keymap( 'i', '<Tab>', 'pumvisible() ? "<C-n>" : "<Tab>"', { silent = true, expr = true })
 vim.api.nvim_set_keymap( 'i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { silent = true, expr = true })
@@ -37,3 +40,16 @@ function ShowCocDocumentation()
   end
 end
 vim.cmd('autocmd CursorHold * silent call CocActionAsync("highlight")')
+
+function _G.SwitchCocTs()
+  local path = vim.fn.empty(vim.fn.expand('%')) == 1 and '.' or '%:p:h'
+  if vim.fn.empty(vim.fn.finddir('node_modules', path)) == 1 then
+    vim.fn['coc#config']('deno.enable', true)
+    vim.fn['coc#config']('tsserver.enable', false)
+    else
+    vim.fn['coc#config']('deno.enable', false)
+    vim.fn['coc#config']('tsserver.enable', true)
+  end
+end
+
+vim.cmd('autocmd FileType typescript,typescript.tsx,typescriptreact ++once call v:lua.SwitchCocTs()')
