@@ -1,1 +1,1 @@
-aut BufNewFile,BufRead *.tjs setf tjs
+autocmd BufNewFile,BufRead *.tjs setf tjs

@@ -25,7 +25,6 @@
       "filetypes": ["haskell", "lhaskell"]
     }
   },
-  "rust-analyzer.cargo.loadOutDirsFromCheck": true,
   "rust-analyzer.procMacro.enable": true,
   "tsserver.enable": false,
   "deno.enable": false,
@@ -34,8 +33,12 @@
     "Deno",
     "Neovim",
     "denops",
+    "epub",
     "msgpack",
     "ojichat",
     "webp"
-  ]
+  ],
+  "tailwindCSS.includeLanguages": {
+    "htmldjango": "html"
+  }
 }

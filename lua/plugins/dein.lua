@@ -34,3 +34,5 @@ if vim.fn.len(removed_plugins) > 0 then
   vim.fn.map(removed_plugins, "delete(v:val, 'rf')")
   dein.recache_runtimepath()
 end
+
+vim.cmd("autocmd VimEnter * call dein#call_hook('post_source')")

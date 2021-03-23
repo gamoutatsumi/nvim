@@ -16,10 +16,7 @@ nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
 [[plugins]]
 repo = 'bluz71/vim-nightfly-guicolors'
 hook_add = '''
-lua << EOF
-  vim.cmd('au MyAutoCmd VimEnter * nested colorscheme nightfly')
-  vim.g.airline_theme = 'nightfly'
-EOF
+colorscheme nightfly
 '''
 
 [[plugins]]
@@ -36,7 +33,7 @@ EOF
 
 [[plugins]]
 repo = 'lewis6991/gitsigns.nvim'
-hook_add = '''
+hook_post_source = '''
 lua require('gitsigns').setup()
 '''
 
@@ -101,7 +98,7 @@ rev = 'release'
 
 [[plugins]]
 repo = 'glepnir/galaxyline.nvim'
-hook_add = '''
+hook_post_source = '''
 lua require('plugins.galaxyline_setting')
 '''
 
@@ -201,13 +198,13 @@ EOF
 
 [[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter'
-hook_add = '''
+hook_post_source = '''
 lua require('plugins.treesitter_setting')
 '''
 
 [[plugins]]
 repo = 'norcalli/nvim-colorizer.lua'
-hook_add = '''
+hook_post_source = '''
 lua require'colorizer'.setup()
 '''
 
@@ -261,10 +258,28 @@ repo = 'AndrewRadev/switch.vim'
 
 [[plugins]]
 repo = 'monaqa/dial.nvim'
-hook_add = '''
+hook_post_source = '''
 lua << EOF
   vim.api.nvim_set_keymap('n', '<C-a>', '<Plug>(dial-increment)', { silent = true , noremap = false })
   vim.api.nvim_set_keymap('n', '<C-x>', '<Plug>(dial-decrement)', { silent = true , noremap = false })
+  local dial = require"dial"
+  dial.config.searchlist = {
+    normal = {
+      "number#decimal#fixed#zero",
+      "date#[%Y/%m/%d]",
+      "date#[%m/%d]",
+      "date#[%H:%M]",
+    },
+    visual = {
+      "number#decimal",
+      "date#[%Y/%m/%d]",
+      "date#[%m/%d]",
+      "date#[%H:%M]",
+      "color#hex",
+      "char#alph#small#word",
+      "char#alph#capital#word",
+    }
+  }
 EOF
 '''
 
@@ -394,3 +409,6 @@ repo = 'vim-denops/denops.vim'
 
 [[plugins]]
 repo = 'gamoutatsumi/denops-ojichat.vim'
+
+[[plugins]]
+repo = 'tweekmonster/helpful.vim'

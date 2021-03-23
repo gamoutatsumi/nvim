@@ -85,19 +85,13 @@ gls.left[5] = {
 }
 
 gls.left[6] = {
-  GitIcon = {
-    provider = function() return '  ' end,
-    condition = buffer_not_empty,
-    highlight = { colors.white, colors.slateblue },
-  }
-}
-
-gls.left[7] = {
   GitBranch = {
     provider = 'GitBranch',
     condition = buffer_not_empty,
     separator = '  ',
     highlight = { colors.white, colors.slateblue },
+    separator_highlight = { colors.white, colors.slateblue },
+    icon = '  '
   }
 }
 
@@ -108,7 +102,7 @@ gls.left[7] = {
   --}
 --}
 
-gls.left[8] = {
+gls.left[7] = {
   FileName = {
     provider = 'FileName',
     condition = buffer_not_empty,
@@ -116,7 +110,7 @@ gls.left[8] = {
   }
 }
 
-gls.left[9] = {
+gls.left[8] = {
   CocServices = {
     provider = function() return vim.g.coc_status end,
     condition = vim.fn.exists('g:coc_status') == 1,
@@ -126,7 +120,7 @@ gls.left[9] = {
 
 gls.right[1] = {
   FileTypeName = {
-    provider = function() return require('galaxyline.provider_buffer').get_buffer_filetype():lower() end,
+    provider = function() return require('galaxyline.provider_buffer').get_buffer_filetype():lower() .. ' ' end,
     condition = buffer_not_empty,
     highlight = { colors.white, colors.slateblue },
   }
@@ -135,7 +129,6 @@ gls.right[1] = {
 gls.right[2] = {
   FileIcon = {
     provider = 'FileIcon',
-    separator = ' ',
     condition = buffer_not_empty,
     highlight = { require('galaxyline.provider_fileinfo').get_file_icon_color, colors.slateblue },
   }

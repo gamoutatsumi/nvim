@@ -2,7 +2,7 @@ vim.g['fern#drawer_width'] = 30
 vim.g['fern#renderer'] = 'nerdfont'
 vim.g['fern#renderer#nerdfont#padding'] = '  '
 vim.g['fern#disable_default_mappings'] = 1
-vim.g['fern#smart_cursor'] = 'stick'
+vim.g['fern#hide_cursor'] = 1
 vim.g['fern#default_hidden'] = 1
 vim.api.nvim_set_keymap('n', '<C-e>', '<cmd>Fern . -drawer -reveal=% -toggle<CR>', { silent = true, noremap = true })
 vim.api.nvim_set_keymap('n', '<Plug>(fern-close-drawer)', ':<C-u>FernDo close -drawer -stay<CR>', { silent = true, noremap = true })

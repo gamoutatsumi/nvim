@@ -1,6 +1,6 @@
 require'nvim-treesitter.configs'.setup {
   -- Modules and its options go here
-  ensure_installed = { 'python', 'lua', 'typescript', 'tsx', 'yaml', 'json', 'rust', 'html', 'go', 'toml', 'bash', 'css', 'haskell', 'vue' },
+  ensure_installed = { 'python', 'lua', 'typescript', 'tsx', 'yaml', 'json', 'rust', 'html', 'go', 'toml', 'bash', 'css', 'vue' },
   highlight = { enable = true },
   incremental_selection = { enable = true },
   textobjects = { enable = true },

@@ -18,7 +18,8 @@ local opts = {
   fileencodings = 'utf-8,iso-2022-jp,cp932,sjis,euc-jp',
   undodir = vim.env.HOME..'/.local/share/nvim/backup',
   termguicolors = true,
-  foldlevelstart = 99
+  foldlevelstart = 99,
+  hidden = true
 }
 
 local wopts = {

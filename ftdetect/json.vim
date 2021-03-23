@@ -1,1 +1,1 @@
-autocmd VimEnter * nested if @% == '.textlintrc' | set filetype=json | endif
+autocmd BufNewFile,BufRead .textlintrc setlocal filetype=json

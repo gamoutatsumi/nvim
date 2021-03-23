@@ -1,1 +1,1 @@
-autocmd VimEnter * nested if @% == '.eslintignore' | set filetype=gitignore | endif
+autocmd BufNewFile,BufRead .eslintignore setlocal filetype=gitignore
