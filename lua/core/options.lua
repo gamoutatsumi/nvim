@@ -3,7 +3,6 @@ local api = vim.api
 local opts = {
   splitright = true,
   splitbelow = true,
-  clipboard = 'unnamedplus',
   hlsearch = true,
   mouse = 'a',
   whichwrap = 'b,s,h,l,<,>,[,]',
@@ -21,6 +20,12 @@ local opts = {
   foldlevelstart = 99,
   hidden = true
 }
+
+if vim.fn.has('unix') == 1 then
+  opts.clipboard = "unnamedplus"
+else
+  opts.clipboard = "unnamed"
+end
 
 local wopts = {
   cursorline = true,

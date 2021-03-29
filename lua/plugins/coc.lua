@@ -43,7 +43,7 @@ vim.cmd('autocmd CursorHold * silent call CocActionAsync("highlight")')
 
 function _G.SwitchCocTs()
   local path = vim.fn.empty(vim.fn.expand('%')) == 1 and '.' or '%:p:h'
-  if vim.fn.empty(vim.fn.finddir('node_modules', path)) == 1 or vim.fn.empty(vim.fn.finddir(vim.fn.resolve(vim.fn.expand(path) .. '/node_modules'))) == 1 then
+  if vim.fn.empty(vim.fn.finddir('node_modules', path)) == 1 and vim.fn.empty(vim.fn.finddir(vim.fn.resolve(vim.fn.expand(path) .. '/node_modules'))) == 1 then
     vim.fn['coc#config']('deno.enable', true)
     vim.fn['coc#config']('tsserver.enable', false)
     else
