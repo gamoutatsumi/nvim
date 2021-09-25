@@ -33,16 +33,6 @@ local eskk_enabled = function()
   return false
 end
 
-local provider_eskk_mode = function()
-  if not eskk_enabled() and vim.fn.exists('b:eskk_status') ~= 1 then
-    vim.api.nvim_buf_set_var(0, 'eskk_status', '')
-    return vim.api.nvim_buf_get_var(0, 'eskk_status')
-  else
-    vim.api.nvim_buf_set_var(0, 'eskk_status', vim.fn['eskk#statusline']())
-  end
-  return vim.api.nvim_buf_get_var(0, 'eskk_status')
-end
-
 gls.left[1] = {
   FirstElement = {
     provider = function() return ' ' end,
@@ -52,7 +42,7 @@ gls.left[1] = {
 gls.left[2] = {
   ViMode = {
     provider = function()
-      local alias = { n = 'NORMAL', i = 'INSERT', c= 'COMMAND', V= 'L-VISUAL', [''] = 'B-VISUAL', v = 'VISUAL', s = 'SELECT' }
+      local alias = { n = 'NORMAL', i = 'INSERT', c = 'COMMAND', V = 'L-VISUAL', [''] = 'B-VISUAL', v = 'VISUAL', s = 'SELECT', t = 'TEMRINAL', R = 'REPLACE' }
       return alias[vim.fn.mode()] .. ' '
     end,
     separator = ' ',
@@ -60,7 +50,21 @@ gls.left[2] = {
     highlight = { colors.fg, colors.blue, 'bold' },
   }
 }
-gls.left[3] = {
+
+--[[ gls.left[3] = {
+  SKkStatus = {
+    provider = function()
+      local alias = { hira = 'あ', kata = 'ア' }
+      return '  ' .. alias[vim.fn['skkeleton#mode']()]
+    end,
+    separator = ' ',
+    separator_highlight = { colors.blue, colors.slateblue },
+    condition = vim.g['skkeleton#init'] == true,
+    highlight = { colors.fg, colors.blue, 'bold' }
+  }
+} ]]
+
+gls.left[4] = {
   DiffAdd = {
     provider = 'DiffAdd',
     icon = '+',
@@ -68,7 +72,7 @@ gls.left[3] = {
   }
 }
 
-gls.left[4] = {
+gls.left[5] = {
   DiffModified = {
     provider = 'DiffModified',
     icon = '~',
@@ -76,7 +80,7 @@ gls.left[4] = {
   }
 }
 
-gls.left[5] = {
+gls.left[6] = {
   DiffRemove = {
     provider = 'DiffRemove',
     icon = '-',
@@ -84,7 +88,7 @@ gls.left[5] = {
   }
 }
 
-gls.left[6] = {
+gls.left[7] = {
   GitBranch = {
     provider = 'GitBranch',
     condition = buffer_not_empty,
@@ -95,14 +99,7 @@ gls.left[6] = {
   }
 }
 
---gls.left[8] = {
-  --EskkStatus = {
-    --provider = function() return provider_eskk_mode() end,
-    --highlight = { colors.white, colors.slateblue },
-  --}
---}
-
-gls.left[7] = {
+gls.left[8] = {
   FileName = {
     provider = 'FileName',
     condition = buffer_not_empty,
@@ -110,7 +107,7 @@ gls.left[7] = {
   }
 }
 
-gls.left[8] = {
+gls.left[9] = {
   CocServices = {
     provider = function() return vim.g.coc_status end,
     condition = vim.fn.exists('g:coc_status') == 1,
@@ -175,7 +172,7 @@ gls.right[7] = {
     provider = 'DiagnosticError',
     separator = ' ',
     separator_highlight = { colors.slateblue, colors.blue },
-    icon = ' E:',
+    icon = '  E:',
     highlight = { colors.white, colors.slateblue }
   }
 }
@@ -183,7 +180,7 @@ gls.right[7] = {
 gls.right[8] = {
   DiagnosticWarn = {
     provider = 'DiagnosticWarn',
-    icon = ' W:',
+    icon = '  W:',
     highlight = { colors.white, colors.slateblue },
   }
 }
@@ -191,7 +188,7 @@ gls.right[8] = {
 gls.right[9] = {
   DiagnosticHint = {
     provider = 'DiagnosticHint',
-    icon = ' H:',
+    icon = '  H:',
     highlight = { colors.white, colors.slateblue },
   }
 }
@@ -199,7 +196,7 @@ gls.right[9] = {
 gls.right[10] = {
   DiagnosticInfo = {
     provider = 'DiagnosticInfo',
-    icon = ' I:',
+    icon = '  I:',
     highlight = { colors.white, colors.slateblue },
   }
 }

@@ -2,39 +2,23 @@
 repo = 'Shougo/dein.vim'
 
 [[plugins]]
-repo = 'kevinhwang91/nvim-hlslens'
-hook_add = '''
-noremap <silent> n <Cmd>execute('normal! ' . v:count1 . 'n')<CR><Cmd>lua require('hlslens').start()<CR>
-noremap <silent> N <Cmd>execute('normal! ' . v:count1 . 'N')<CR><Cmd>lua require('hlslens').start()<CR>
-noremap * *<Cmd>lua require('hlslens').start()<CR>
-noremap # #<Cmd>lua require('hlslens').start()<CR>
-noremap g* g*<Cmd>lua require('hlslens').start()<CR>
-noremap g# g#<Cmd>lua require('hlslens').start()<CR>
-nnoremap <silent> <Esc><Esc> :nohlsearch<CR>
-'''
-
-[[plugins]]
 repo = 'bluz71/vim-nightfly-guicolors'
 hook_add = '''
-colorscheme nightfly
+  colorscheme nightfly
+  highlight Normal ctermbg=NONE guibg=NONE
+  highlight NonText ctermbg=NONE guibg=NONE
+  highlight LineNr ctermbg=NONE guibg=NONE
+  highlight Folded ctermbg=NONE guibg=NONE
 '''
 
 [[plugins]]
 repo = 'machakann/vim-sandwich'
 hook_add = '''
-lua << EOF
-  vim.api.nvim_set_var('sandwitch_no_default_key_mappings', 1)
-  vim.api.nvim_set_var('operator_sandwitch_no_default_key_mappings', 1)
-  vim.api.nvim_set_keymap('n', 'ys', '<Plug>(operator-sandwich-add)', { silent = true })
-  vim.api.nvim_set_keymap('n', 'ds', '<Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)', { silent = true })
-  vim.api.nvim_set_keymap('n', 'cs', '<Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)', { silent = true })
-EOF
-'''
-
-[[plugins]]
-repo = 'lewis6991/gitsigns.nvim'
-hook_post_source = '''
-lua require('gitsigns').setup()
+  let sandwitch_no_default_key_mappings=1
+  let operator_sandwitch_no_default_key_mappings=1
+  nmap <silent> ys <Plug>(operator-sandwitch-add)
+  nmap <silent> ds <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
+  nmap <silent> cs <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
 '''
 
 [[plugins]]
@@ -70,49 +54,21 @@ repo = 'thinca/vim-quickrun'
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
 hook_add = '''
-lua << EOF
-  vim.g.WebDevIconsNerdTreeBeforeGlyphPadding = ''
-  vim.g.WebDevIconsUnicodeDecorateFolderNodes = true
-  if (vim.fn.exists('g:loaded_webdevicons') == 1) then
-    vim.fn['webdevicons#refresh']()
-  end
-EOF
+  let g:WebDevIconsNerdTreeBeforeGlyphPadding=''
+  let g:WebDevIconsUnicodeDecorateFolderNodes=v:true
+  if exists('g:loaded_webdevicons')
+    webdevicons#refresh()
+  endif
 '''
 
 [[plugins]]
 repo = 'editorconfig/editorconfig-vim'
 
 [[plugins]]
-repo = 'neoclide/coc.nvim'
-rev = 'release'
-hook_add = '''
-lua require('plugins.coc')
-'''
-
-[[plugins]]
 repo = 'junegunn/fzf.vim'
 
 [[plugins]]
-repo = 'antoinemadec/coc-fzf'
-rev = 'release'
-
-[[plugins]]
-repo = 'glepnir/galaxyline.nvim'
-hook_post_source = '''
-lua require('plugins.galaxyline_setting')
-'''
-
-[[plugins]]
 repo = 'itchyny/vim-parenmatch'
-
-[[plugins]]
-repo = 'honza/vim-snippets'
-hook_add = '''
-lua << EOF
-  vim.g.UltiSnipsExpandTrigger = '<NUL>'
-  vim.g.UltiSnipsListSnippets = '<NUL>'
-EOF
-'''
 
 #[[plugins]]
 #repo = 'edkolev/tmuxline.vim'
@@ -136,7 +92,45 @@ EOF
 [[plugins]]
 repo = 'lambdalisue/fern.vim'
 hook_add = '''
-lua require('plugins.fern')
+  let g:fern#drawer_width=30
+  let g:fern#renderer="nerdfont"
+  let g:fern#renderer#nerdfont#padding='  '
+  let g:fern#disable_default_mappings=1
+  let g:fern#hide_cursor=0
+  let g:fern#default_hidden=1
+  nnoremap <silent> <C-e> <cmd>Fern . -drawer -reveal=% -toggle<CR>
+  nnoremap <silent> <Plug>(fern-close-drawer) <cmd>FernDo close -drawer -stay<CR>
+  function FernSettings()
+    nmap <buffer><silent><nowait> <Plug>(fern-action-open-and-close) <Plug>(fern-action-open:select)<Plug>(fern-close-drawer)
+    nmap <buffer><silent><nowait><expr> <Plug>(fern-expand-or-collapse) fern#smart#leaf("<Plug>(fern-action-collapse)", "<Plug>(fern-action-expand)", "<Plug>(fern-action-collapse)")
+    nmap <buffer><silent><nowait><expr> <Plug>(fern-open-or-expand) fern#smart#leaf("<Plug>(fern-action-open-and-close)", "<Plug>(fern-action-expand)")
+    nmap <buffer><silent><nowait> a <Plug>(fern-choice)
+    nmap <buffer><silent><nowait> t <Plug>(fern-expand-or-collapse)
+    nmap <buffer><silent><nowait> <CR> <Plug>(fern-open-or-expand)
+    nmap <buffer><silent><nowait> o <Plug>(fern-action-open-and-close)
+    nmap <buffer><silent><nowait> l <Plug>(fern-action-expand)
+    nmap <buffer><silent><nowait> h <Plug>(fern-action-collapse)
+    nmap <buffer><silent><nowait> x <Plug>(fern-action-mark:toggle)
+    vmap <buffer><silent><nowait> x <Plug>(fern-action-mark:toggle)
+    nmap <buffer><silent><nowait> N <Plug>(fern-action-new-file)
+    nmap <buffer><silent><nowait> K <Plug>(fern-action-new-dir)
+    nmap <buffer><silent><nowait> d <Plug>(fern-action-trash)
+    nmap <buffer><silent><nowait> r <Plug>(fern-action-rename)
+    nmap <buffer><silent><nowait> c <Plug>(fern-action-copy)
+    nmap <buffer><silent><nowait> m <Plug>(fern-action-move)
+    nmap <buffer><silent><nowait> ! <Plug>(fern-action-hidden-toggle)
+    nmap <buffer><silent><nowait> <C-g> <Plug>(fern-action-debug)
+    nmap <buffer><silent><nowait> ? <Plug>(fern-action-help)
+    nmap <buffer><silent><nowait> <C-c> <Plug>(fern-action-cancel)
+    nmap <buffer><silent><nowait> . <Plug>(fern-action-repeat)
+    nmap <buffer><silent><nowait> R <Plug>(fern-action-redraw)
+    nmap <buffer><silent><nowait> q <cmd>quit<CR>
+    nmap <buffer><silent><nowait> Q <cmd>bwipe!<CR>
+    setlocal nonu
+    setlocal signcolumn="no"
+    setlocal nornu
+  endfunction
+  autocmd FileType fern call FernSettings()
 '''
 
 [[plugins]]
@@ -150,138 +144,33 @@ repo = 'lambdalisue/fern-renderer-nerdfont.vim'
 
 [[plugins]]
 repo = 'lambdalisue/glyph-palette.vim'
+hook_add = '''
+  autocmd FileType fern call glyph_palette#apply()
+'''
 
 [[plugins]]
 repo = 'lambdalisue/nerdfont.vim'
 
-[[plugins]]
-repo = 'antoinemadec/FixCursorHold.nvim'
-
-[[plugins]]
-repo = 'skanehira/gh.vim'
-hook_add = '''
-lua << EOF
-  vim.g.gh_token = vim.env.GH_VIM_TOKEN
-EOF
-'''
-
-[[plugins]]
-repo = 'APZelos/blamer.nvim'
-hook_add = '''
-lua << EOF
-  vim.g.blamer_enabled = 1
-  vim.g.blamer_date_format = '%Y/%m/%d %H:%M'
-EOF
-'''
-
-[[plugins]]
-repo = 'koron/nyancat-vim'
-
-[[plugins]]
-repo = 'wakatime/vim-wakatime'
+# [[plugins]]
+# repo = 'wakatime/vim-wakatime'
 
 [[plugins]]
 repo = 'mbbill/undotree'
 hook_add = '''
-lua << EOF
-  vim.api.nvim_set_keymap('n', '<Leader>u', '<cmd>UndotreeToggle<CR>', { noremap = true })
-EOF
+  nnoremap <Leader>u <cmd>UndotreeToggle<CR>
 '''
 
 [[plugins]]
 repo = 'lambdalisue/suda.vim'
 hook_add = '''
-lua << EOF
-  vim.g.suda_smart_edit = 1
-EOF
-'''
-
-[[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter'
-hook_post_source = '''
-lua require('plugins.treesitter_setting')
-'''
-
-[[plugins]]
-repo = 'norcalli/nvim-colorizer.lua'
-hook_post_source = '''
-lua require'colorizer'.setup()
+  let g:suda_smart_edit=1
 '''
 
 [[plugins]]
 repo = 'lambdalisue/gina.vim'
 
 [[plugins]]
-repo = 'bellflower2015/vim-syntax-tyranoscript'
-
-[[plugins]]
-repo = 'Shougo/deol.nvim'
-hook_add = '''
-lua << EOF
-  vim.api.nvim_set_keymap('n', '<C-o>', '<cmd>Deol -split=otherwise -toggle -winheight=10<CR>', { noremap = true, silent = true })
-  vim.api.nvim_set_keymap('t', '<ESC>', '<C-\\><C-n>', { noremap = true })
-EOF
-'''
-
-[[plugins]]
-repo = 'romgrk/nvim-treesitter-context'
-
-[[plugins]]
-repo = 'kyazdani42/nvim-web-devicons'
-
-[[plugins]]
-repo = 'romgrk/barbar.nvim'
-hook_add = '''
-lua << EOF
-  vim.api.nvim_set_keymap('n', '<C-s>', '<cmd>BufferPick<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<leader>bd', '<cmd>BufferOrderByDirectory<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<leader>bl', '<cmd>BufferOrderByLanguage<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<S-TAB>', '<cmd>BufferPrevious<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<TAB>', '<cmd>BufferNext<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<A-<>', '<cmd>BufferMovePrevious<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<A->>', '<cmd>BufferMoveNext<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<A-1>', '<cmd>BufferGoto 1<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<A-2>', '<cmd>BufferGoto 2<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<A-3>', '<cmd>BufferGoto 3<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<A-4>', '<cmd>BufferGoto 4<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<A-5>', '<cmd>BufferGoto 5<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<A-6>', '<cmd>BufferGoto 6<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<A-7>', '<cmd>BufferGoto 7<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<A-8>', '<cmd>BufferGoto 8<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<A-9>', '<cmd>BufferLast<CR>', { silent = true, noremap = true })
-  vim.api.nvim_set_keymap('n', '<A-c>', '<cmd>BufferClose<CR>', { silent = true, noremap = true })
-EOF
-'''
-
-[[plugins]]
 repo = 'AndrewRadev/switch.vim'
-
-[[plugins]]
-repo = 'monaqa/dial.nvim'
-hook_post_source = '''
-lua << EOF
-  vim.api.nvim_set_keymap('n', '<C-a>', '<Plug>(dial-increment)', { silent = true , noremap = false })
-  vim.api.nvim_set_keymap('n', '<C-x>', '<Plug>(dial-decrement)', { silent = true , noremap = false })
-  local dial = require"dial"
-  dial.config.searchlist = {
-    normal = {
-      "number#decimal#fixed#zero",
-      "date#[%Y/%m/%d]",
-      "date#[%m/%d]",
-      "date#[%H:%M]",
-    },
-    visual = {
-      "number#decimal",
-      "date#[%Y/%m/%d]",
-      "date#[%m/%d]",
-      "date#[%H:%M]",
-      "color#hex",
-      "char#alph#small#word",
-      "char#alph#capital#word",
-    }
-  }
-EOF
-'''
 
 [[plugins]]
 repo = 'Shougo/denite.nvim'
@@ -300,60 +189,13 @@ endfunction
 [[plugins]]
 repo = 'christoomey/vim-tmux-navigator'
 
-[[plugins]]
-repo = 'nvim-lua/popup.nvim'
-
-[[plugins]]
-repo = 'nvim-lua/plenary.nvim'
-
-[[plugins]]
-repo = 'nvim-telescope/telescope.nvim'
-hook_add = '''
-lua << EOF
-  vim.api.nvim_set_keymap('n', '<leader>ff', '<cmd>lua require("telescope.builtin").find_files()<CR>', { noremap = true })
-  vim.api.nvim_set_keymap('n', '<leader>fg', '<cmd>lua require("telescope.builtin").live_grep()<CR>', { noremap = true })
-  vim.api.nvim_set_keymap('n', '<leader>fb', '<cmd>lua require("telescope.builtin").buffers()<CR>', { noremap = true })
-  vim.api.nvim_set_keymap('n', '<leader>fh', '<cmd>lua require("telescope.builtin").help_tags()<CR>', { noremap = true })
-EOF
-'''
-
-[[plugins]]
-repo = 'nvim-treesitter/nvim-treesitter-refactor'
-
-[[plugins]]
-repo = 'skanehira/gyazo.vim'
-
-[[plugins]]
-repo = 'skanehira/badapple.vim'
+# [[plugins]]
+# repo = 'vim-jp/vital.vim'
+# merged = 0
 
 # [[plugins]]
-# repo = 'glepnir/indent-guides.nvim'
-# hook_add = '''
-# lua << EOF
-#   require('indent_guides').setup({
-#     indent_levels = 30;
-#     indent_guide_size = 1;
-#     indent_start_level = 1;
-#     indent_space_guides = true;
-#     indent_tab_guides = false;
-#     indent_soft_pattern = '\\s';
-#     exclude_filetypes = {'help','dashboard','dashpreview','NvimTree','vista','sagahover','fern'};
-#     even_colors = { fg ='#2E323A',bg='#34383F' };
-#     odd_colors = {fg='#34383F',bg='#2E323A'};
-#   })
-# EOF
-# '''
-
-[[plugins]]
-repo = 'vim-jp/vital.vim'
-merged = 0
-
-[[plugins]]
-repo = 'lambdalisue/vital-Whisky'
-merged = 0
-
-[[plugins]]
-repo = 'mmisono/viminesweeper'
+# repo = 'lambdalisue/vital-Whisky'
+# merged = 0
 
 [[plugins]]
 repo = 'vim-jp/vimdoc-ja'
@@ -362,53 +204,33 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = 'mfussenegger/nvim-dap'
-
-[[plugins]]
-repo = 'phaazon/hop.nvim'
-hook_add = '''
-nmap $ <cmd>lua require'hop'.jump_words()<CR>
-'''
-
-[[plugins]]
-repo = 'segeljakt/vim-silicon'
-hook_add = '''
-lua << EOF
-  local silicon = {}
-  silicon['theme'] = 'Dracula'
-  silicon['font'] = 'HackGen'
-  silicon['background'] = '#AAAAFF'
-  silicon['shadow-color'] = '#555555'
-  silicon['line-pad'] = 2
-  silicon['pad-horiz'] = 80
-  silicon['pad-vert'] = 10
-  silicon['shadow-blur-radius'] = 0
-  silicon['shadow-offset-x'] = 0
-  silicon['shadow-offset-y'] = 0
-  silicon['line-number'] = true
-  silicon['round-corner'] = true
-  silicon['window-controls'] = true
-  silicon['output'] = '~/Pictures/silicon-{time:%Y-%m-%d-%H%M%S}.png'
-  vim.api.nvim_set_var('silicon', silicon)
-EOF
-'''
-
-[[plugins]]
-repo = 'b3nj5m1n/kommentary'
-hook_post_source = '''
-lua << EOF
-  require('kommentary.config').configure_language("typescriptreact", {
-    single_line_comment_string = "//",
-    multi_line_comment_strings = {"{/*", "*/}"}
-  })
-EOF
-'''
-
-[[plugins]]
-repo = 'vim-denops/denops.vim'
-
-[[plugins]]
-repo = 'gamoutatsumi/denops-ojichat.vim'
-
-[[plugins]]
 repo = 'tweekmonster/helpful.vim'
+
+[[plugins]]
+repo = 'LeafCage/vimhelpgenerator'
+
+[[plugins]]
+repo = 'chr4/nginx.vim'
+
+[[plugins]]
+repo = 'tyru/capture.vim'
+
+[[plugins]]
+repo = 'reireias/vim-cheatsheet'
+
+
+# [[plugins]]
+# repo = 'vim-skk/eskk.vim'
+# hook_add = '''
+# lua require('plugins.eskk')
+# '''
+
+[[plugins]]
+repo = 'Shougo/deol.nvim'
+hook_add = '''
+  nnoremap <silent> <C-o> <cmd>Deol -split=otherwise -toggle -winheight=10<CR>
+  tnoremap <Esc> <C-\><C-n>
+'''
+
+[[plugins]]
+repo = '~/Repositories/github.com/gamoutatsumi/coc-efm'

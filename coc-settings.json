@@ -16,13 +16,19 @@
     "efm": {
       "command": "efm-langserver",
       "args": [],
-      "filetypes": ["markdown", "sh", "dockerfile"]
+      "filetypes": ["go", "markdown", "sh", "dockerfile"]
     },
     "haskell": {
       "command": "haskell-language-server-wrapper",
       "args": ["--lsp"],
       "rootPatterns": ["*.cabal","stack.yaml", "cabal.project", "package.yanl", "hie.yanl"],
       "filetypes": ["haskell", "lhaskell"]
+    },
+    "satysfi-ls": {
+      "command": "satysfi-language-server",
+      "args": ["-w"],
+      "filetypes": ["satysfi"],
+      "trace.server": "verbose"
     }
   },
   "rust-analyzer.procMacro.enable": true,
@@ -32,13 +38,26 @@
   "cSpell.userWords": [
     "Deno",
     "Neovim",
+    "autocmd",
     "denops",
     "epub",
+    "ftmap",
+    "ghosttext",
     "msgpack",
     "ojichat",
+    "pynvim",
+    "qiita",
+    "servest",
     "webp"
   ],
   "tailwindCSS.includeLanguages": {
     "htmldjango": "html"
+  },
+  "nginx.enable": true,
+  "hover.floatConfig": {
+    "winblend": 15
+  },
+  "suggest.floatConfig": {
+    "winblend": 15
   }
 }

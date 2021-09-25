@@ -7,7 +7,7 @@ vim.g.coc_global_extensions = {
   'coc-json',
   'coc-yaml',
   'coc-marketplace',
-  'coc-discord-neovim',
+  -- 'coc-discord-neovim',
   'coc-markdownlint',
   'coc-rust-analyzer',
   'coc-go',
@@ -17,9 +17,16 @@ vim.g.coc_global_extensions = {
   'coc-docker',
   'coc-vetur',
   'coc-pyright',
-  'coc-denoland',
+  'coc-deno',
   'coc-emoji',
-  'coc-spell-checker'
+  'coc-spell-checker',
+  'coc-phpls',
+  '@yaegassy/coc-nginx',
+  'coc-eslint',
+  'coc-clangd',
+  'coc-vimlsp',
+  'coc-toml',
+  'coc-restclient'
 }
 vim.api.nvim_set_keymap( 'i', '<Tab>', 'pumvisible() ? "<C-n>" : "<Tab>"', { silent = true, expr = true })
 vim.api.nvim_set_keymap( 'i', '<S-Tab>', 'pumvisible() ? "<C-p>" : "<S-Tab>"', { silent = true, expr = true })
@@ -42,8 +49,9 @@ end
 vim.cmd('autocmd CursorHold * silent call CocActionAsync("highlight")')
 
 function _G.SwitchCocTs()
-  local path = vim.fn.empty(vim.fn.expand('%')) == 1 and '.' or '%:p:h'
-  if vim.fn.empty(vim.fn.finddir('node_modules', path)) == 1 and vim.fn.empty(vim.fn.finddir(vim.fn.resolve(vim.fn.expand(path) .. '/node_modules'))) == 1 then
+  local path = #vim.fn.expand('%') == 0 and vim.cmd('pwd') or vim.fn.expand('%:p:h')
+  local pwd = vim.cmd('pwd')
+  if #(vim.fn.finddir('node_modules', path)) == 0 and #(vim.fn.finddir('node_modules', pwd)) == 0 then
     vim.fn['coc#config']('deno.enable', true)
     vim.fn['coc#config']('tsserver.enable', false)
     else

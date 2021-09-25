@@ -1,5 +1,3 @@
-local api = vim.api
-
 local opts = {
   splitright = true,
   splitbelow = true,
@@ -15,52 +13,27 @@ local opts = {
   encoding = 'utf-8',
   fileencoding = 'utf-8',
   fileencodings = 'utf-8,iso-2022-jp,cp932,sjis,euc-jp',
-  undodir = vim.env.HOME..'/.local/share/nvim/backup',
+  undodir = vim.env.XDG_DATA_HOME..'/nvim/backup',
   termguicolors = true,
   foldlevelstart = 99,
-  hidden = true
-}
-
-if vim.fn.has('unix') == 1 then
-  opts.clipboard = "unnamedplus"
-else
-  opts.clipboard = "unnamed"
-end
-
-local wopts = {
-  cursorline = true,
+  hidden = true,
+  sessionoptions = "buffers,curdir,tabpages,winsize",
   signcolumn = 'yes',
   number = true,
+  relativenumber = true,
   foldmethod = 'marker',
-}
-
-local bopts = {
   autoindent = true,
   smartindent = true,
-  tabstop = '2',
-  shiftwidth = '2',
-
+  tabstop = 2,
+  shiftwidth = 2,
   expandtab = true,
   undofile = true,
-  matchpairs = vim.bo.matchpairs .. ',「:」,『:』,（:）,【:】,《:》,〈:〉,［:］,‘:’,“:”'
+  matchpairs = vim.bo.matchpairs .. ',「:」,『:』,（:）,【:】,《:》,〈:〉,［:］,‘:’,“:”',
+  clipboard = 'unnamedplus',
+  pumblend = 15,
+  cursorline = true
 }
 
 for opt, val in pairs(opts) do
-  vim.api.nvim_set_option(opt, val)
-end
-
-for opt, val in pairs(wopts) do
-  if type(val) == 'boolean' then
-    vim.cmd('set ' .. opt)
-    else
-    vim.cmd('set ' .. opt .. '=' .. val)
-  end
-end
-
-for opt, val in pairs(bopts) do
-  if type(val) == 'boolean' then
-    vim.cmd('set ' .. opt)
-    else
-    vim.cmd('set ' .. opt .. '=' .. val)
-  end
+  vim.opt[opt] = val
 end

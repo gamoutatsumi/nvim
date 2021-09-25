@@ -1,5 +1,5 @@
 local server = {
-  host = 'localhost',
+  host = '127.0.0.1',
   port = 1178
 }
 local large_dictionary = {
@@ -20,23 +20,26 @@ vim.cmd('autocmd User eskk-disable-post call v:lua.PostDisableEskk()')
 function _G.PreInitEskk()
   vim.cmd('EskkUnmap -type=sticky')
   vim.cmd('EskkMap -type=sticky Q')
+  vim.cmd('EskkUnmap -type=backspace-key')
   vim.api.nvim_exec(
   [[
   let t = eskk#table#new('rom_to_hira*', "rom_to_hira")
-  call t.add_map('z-', '―')
-  call t.add_map('z~', '～')
+  call t.add_map('z,', '―')
   call t.add_map('z ', '　')
   call t.add_map('z|', '｜')
   call t.add_map('<<', '《')
   call t.add_map('>>', '》')
+  call t.add_map('(', '（')
+  call t.add_map(')', '）')
   call eskk#register_mode_table('hira', t)
   let t = eskk#table#new('rom_to_kata*', "rom_to_kata")
-  call t.add_map('z-', '―')
-  call t.add_map('z~', '～')
+  call t.add_map('z,', '―')
   call t.add_map('z ', '　')
   call t.add_map('z|', '｜')
   call t.add_map('<<', '《')
   call t.add_map('>>', '》')
+  call t.add_map('(', '（')
+  call t.add_map(')', '）')
   call eskk#register_mode_table('kata', t)
   ]],
   false)

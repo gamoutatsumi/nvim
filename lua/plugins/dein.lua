@@ -3,7 +3,7 @@ local api = vim.api
 local dein_dir = vim.fn.expand('~/.local/share/nvim/dein')
 local dein_repo_dir = dein_dir..'/repos/github.com/Shougo/dein.vim'
 
-local dein = require('dein')
+local dein = require('utils/dein')
 
 api.nvim_set_var('dein#install_github_api_token', os.getenv('DEIN_GITHUB_TOKEN'))
 
@@ -19,8 +19,18 @@ if (dein.load_state(dein_dir) == 1) then
   local rc_dir = vim.fn.expand('~/.config/nvim')
   local toml = rc_dir..'/dein.toml'
   local lazy_toml = rc_dir..'/dein_lazy.toml'
+  local ddc_toml = rc_dir..'/ddc.toml'
+  local coc_toml = rc_dir..'/coc.toml'
+  local nvim_toml = rc_dir..'/neovim.toml'
+  local denops_toml = rc_dir..'/denops.toml'
+  local ts_toml = rc_dir..'/treesitter.toml'
   dein.load_toml(toml, { lazy = 0 })
   dein.load_toml(lazy_toml, { lazy = 1 })
+  -- dein.load_toml(ddc_toml, { lazy = 0 })
+  dein.load_toml(coc_toml, { lazy = 0 })
+  dein.load_toml(denops_toml, { lazy = 0 })
+  dein.load_toml(ts_toml, { lazy = 0 })
+  dein.load_toml(nvim_toml, { lazy = 0 })
   dein['end']()
   dein.save_state()
 end
@@ -36,3 +46,4 @@ if vim.fn.len(removed_plugins) > 0 then
 end
 
 vim.cmd("autocmd VimEnter * call dein#call_hook('post_source')")
+vim.cmd("command DeinUpdate call dein#check_update(v:true)")

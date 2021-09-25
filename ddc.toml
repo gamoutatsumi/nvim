@@ -1,0 +1,38 @@
+[[plugins]]
+repo = 'neovim/nvim-lspconfig'
+
+[[plugins]]
+repo = 'kabouzeid/nvim-lspinstall'
+hook_post_source = '''
+lua require("plugins.lsp")
+'''
+
+[[plugins]]
+repo = 'weilbith/nvim-lsp-smag'
+
+[[plugins]]
+repo = 'higashi000/dps-kakkonan'
+
+[[plugins]]
+repo = 'Shougo/ddc.vim'
+hook_add = '''
+autocmd User DenopsReady lua require('plugins.ddc')
+'''
+
+[[plugins]]
+repo = 'Shougo/ddc-matcher_head'
+
+[[plugins]]
+repo = 'Shougo/ddc-sorter_rank'
+
+[[plugins]]
+repo = 'Shougo/ddc-nvim-lsp'
+
+[[plugins]]
+repo = 'matsui54/ddc-nvim-lsp-doc'
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip'
+
+[[plugins]]
+repo = 'hrsh7th/vim-vsnip-integ'
