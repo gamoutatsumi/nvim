@@ -130,3 +130,6 @@ lua << EOF
   })
 EOF
 '''
+
+[[plugins]]
+repo = 'kwkarlwang/bufresize.nvim'

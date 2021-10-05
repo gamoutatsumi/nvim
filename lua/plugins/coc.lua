@@ -36,6 +36,7 @@ vim.api.nvim_set_keymap( 'n', 'gi', '<Plug>(coc-implementation)', { silent = tru
 vim.api.nvim_set_keymap( 'n', 'gr', '<Plug>(coc-references)', { silent = true })
 vim.api.nvim_set_keymap( 'n', '[g', '<Plug>(coc-diagnostic-prev)', { silent = true })
 vim.api.nvim_set_keymap( 'n', 'g]', '<Plug>(coc-diagnostic-next)', { silent = true })
+vim.api.nvim_set_keymap( 'n', '<Leader>rn', '<Plug>(coc-rename)', { silent = true })
 vim.api.nvim_set_keymap( 'n', 'K', '<cmd>lua ShowCocDocumentation()<CR>', { silent = true, noremap = true })
 vim.api.nvim_set_keymap( 'i', '<CR>', 'pumvisible() ? coc#_select_confirm() : "<C-g>u<CR><C-r>=coc#on_enter()<CR>"', { silent = true, noremap = true, expr = true })
 vim.api.nvim_buf_set_keymap( 0, 'i', '<Esc>', 'pumvisible() ? "<C-e>" : "<Esc>"', { silent = true, nowait = true, expr = true })

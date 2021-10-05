@@ -24,33 +24,6 @@ hook_add = '''
 [[plugins]]
 repo = 'thinca/vim-quickrun'
 
-#[[plugins]]
-#repo = 'osyo-manga/vim-precious'
-#depends = ['context_filetype.vim']
-#hook_add = '''
-#lua << EOF
-#local precious_enable_switchers = {
-  #vue = {
-    #setfiletype = 0
-  #}
-#}
-#precious_enable_switchers['*'] = {
-  #setfiletype = 1
-#}
-#vim.api.nvim_set_var('precious_enable_switchers', precious_enable_switchers)
-
-#vim.cmd('augroup VimPrecious')
-#vim.cmd('autocmd!')
-#vim.cmd('autocmd InsertEnter * PreciousSwitch')
-#vim.cmd('autocmd InsertLeave * PreciousReset')
-#vim.cmd('augroup END')
-#vim.cmd('autocmd User PreciousFileType_vim :TSBufDisable highlight')
-#EOF
-#'''
-
-#[[plugins]]
-#repo = 'Shougo/context_filetype.vim'
-
 [[plugins]]
 repo = 'ryanoasis/vim-devicons'
 hook_add = '''
@@ -218,13 +191,6 @@ repo = 'tyru/capture.vim'
 [[plugins]]
 repo = 'reireias/vim-cheatsheet'
 
-
-# [[plugins]]
-# repo = 'vim-skk/eskk.vim'
-# hook_add = '''
-# lua require('plugins.eskk')
-# '''
-
 [[plugins]]
 repo = 'Shougo/deol.nvim'
 hook_add = '''
@@ -233,4 +199,4 @@ hook_add = '''
 '''
 
 [[plugins]]
-repo = '~/Repositories/github.com/gamoutatsumi/coc-efm'
+repo = 'Shougo/context_filetype.vim'

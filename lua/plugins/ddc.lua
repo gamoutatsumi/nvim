@@ -1,12 +1,12 @@
 api = vim.api
 
-vim.fn["ddc#custom#patch_global"]("sources", {"nvimlsp"})
+vim.fn["ddc#custom#patch_global"]("sources", {"nvim-lsp"})
 vim.fn["ddc#custom#patch_global"]("sourceOptions", {
   _ = { matchers = { "matcher_head" }, sorters = {"sorter_rank"}},
-  nvimlsp = { mark = "lsp", forceCompeltionPattern = "\\.|:|->" }
+  nvim-lsp = { mark = "lsp", forceCompeltionPattern = "\\.|:|->" }
 })
 vim.fn["ddc#custom#patch_global"]("sourceParams", {
-  nvimlsp = { kindLabels = { Class = "c" }}
+  nvim-lsp= { kindLabels = { Class = "c" }}
 })
 
 api.nvim_set_keymap("i", "<TAB>", "pumvisible() ? '<C-n>' : (col('.') <= 1 <Bar><Bar> getline('.')[col('.') - 2] =~# '\\s') ? '<TAB>' : ddc#manual_complete()", {silent = true, expr = true})

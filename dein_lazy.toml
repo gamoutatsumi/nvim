@@ -46,24 +46,21 @@ on_ft = ['terraform']
 repo = 'segeljakt/vim-silicon'
 on_cmd = ['Silicon']
 hook_add = '''
-lua << EOF
-  local silicon = {}
-  silicon['theme'] = 'Dracula'
-  silicon['font'] = 'HackGen'
-  silicon['background'] = '#AAAAFF'
-  silicon['shadow-color'] = '#555555'
-  silicon['line-pad'] = 2
-  silicon['pad-horiz'] = 80
-  silicon['pad-vert'] = 10
-  silicon['shadow-blur-radius'] = 0
-  silicon['shadow-offset-x'] = 0
-  silicon['shadow-offset-y'] = 0
-  silicon['line-number'] = true
-  silicon['round-corner'] = true
-  silicon['window-controls'] = true
-  silicon['output'] = '~/Pictures/silicon-{time:%Y-%m-%d-%H%M%S}.png'
-  vim.api.nvim_set_var('silicon', silicon)
-EOF
+  let g:silicon = {}
+  let g:silicon['theme'] = 'Dracula'
+  let g:silicon['font'] = 'HackGen'
+  let g:silicon['background'] = '#AAAAFF'
+  let g:silicon['shadow-color'] = '#555555'
+  let g:silicon['line-pad'] = 2
+  let g:silicon['pad-horiz'] = 80
+  let g:silicon['pad-vert'] = 10
+  let g:silicon['shadow-blur-radius'] = 0
+  let g:silicon['shadow-offset-x'] = 0
+  let g:silicon['shadow-offset-y'] = 0
+  let g:silicon['line-number'] = v:true
+  let g:silicon['round-corner'] = v:true
+  let g:silicon['window-controls'] = v:true
+  let g:silicon['output'] = '~/Pictures/silicon-{time:%Y-%m-%d-%H%M%S}.png'
 '''
 
 [[plugins]]
@@ -98,7 +95,28 @@ on_path = '*.saty?h'
 repo = 'jceb/vim-orgmode'
 on_path = '*.org'
 
-[[plugins]]
-repo = 'skanehira/gyazo.vim'
-on_cmd = 'GyazoUplaod'
+# [[plugins]]
+# repo = 'skanehira/gyazo.vim'
+# on_cmd = 'GyazoUplaod'
 
+[[plugins]]
+repo = 'osyo-manga/vim-precious'
+depends = ['context_filetype.vim']
+on_ft = ['toml']
+hook_post_source = '''
+  let g:precious_enable_switch_CursorMoved = {
+  \ "*": 0,
+  \ }
+  let g:precious_enable_switch_CursorMoved_i = {
+  \ "*": 0,
+  \ }
+  let g:precious_enable_switch_CursorHold = {
+  \ "*": 0,
+  \ }
+  augroup VimPrecious
+    autocmd!
+    autocmd InsertEnter * PreciousSwitch
+    autocmd InsertLeave * PreciousReset
+    autocmd User PreciousFileType :LspRestart
+  augroup END
+'''

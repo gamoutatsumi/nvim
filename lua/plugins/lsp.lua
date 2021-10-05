@@ -1,4 +1,5 @@
 local util = require 'lspconfig/util'
+local lsp_installer = require 'nvim-lsp-installer'
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -27,33 +28,31 @@ local on_attach = function(client, bufnr)
   buf_set_keymap('n', '<space>f', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 end
 
-local function setup_servers()
-  require'lspinstall'.setup()
-  local servers = require'lspinstall'.installed_servers()
-  for _, server in pairs(servers) do
-    if (server == "typescript") then
-      require'lspconfig'[server].setup{
-        on_attach = on_attach,
-        capabilities = capabilities,
-        root_dir = util.root_pattern("package.json")
-      }
-      goto continue
+lsp_installer.on_server_ready(function(server)
+  local opts = {}
+  opts.on_attach = on_attach
+  opts.capabilities = capabilities
+  if server.name == "tsserver" then
+    opts.root_dir = util.root_pattern("package.json")
+    opts.autostart = false
+  elseif server.name == "eslintls" then
+    opts.on_attach = function (client, bufnr)
+      client.resolved_capabilities.document_formatting = true
+      on_attach(client, bufnr)
     end
-    require'lspconfig'[server].setup{
-      on_attach = on_attach,
-      capabilities = capabilities,
-      autostart = true
-    }
-    ::continue::
+    opts.root_dir = util.root_pattern(".eslintrc")
+    opts.autostart = false
+  elseif server.name == "eslintls" then
+    opts.root_dir = util.root_pattern("tailwind.config.js")
+    opts.autostart = false
+  else
+    opts.autostart = true
   end
-end
+  server:setup(opts)
+  vim.cmd [[ do User LspAttachBuffers ]]
+end)
 
-setup_servers()
-
-require'lspinstall'.post_install_hook = function ()
-  setup_servers()
-  vim.cmd("bufdo e")
-end
+vim.cmd[[ autocmd FileType typescript,typescriptreact command! -nargs=* TSOrganizeImports lua require'nvim-lsp-installer.extras.tsserver'.organize_imports(<f-args>) ]]
 
 require'lspconfig'.denols.setup{
   on_attach = on_attach,
