@@ -31,7 +31,6 @@ for var, val in pairs(vars) do
 end
 
 require('core.options')
-require('core.ime')
 require('plugins.dein')
 require('core.keys')
 
