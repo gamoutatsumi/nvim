@@ -14,9 +14,9 @@ hook_add = '''
 [[plugins]]
 repo = 'machakann/vim-sandwich'
 hook_add = '''
-  let sandwitch_no_default_key_mappings=1
-  let operator_sandwitch_no_default_key_mappings=1
-  nmap <silent> ys <Plug>(operator-sandwitch-add)
+  let sandwich_no_default_key_mappings=1
+  let operator_sandwich_no_default_key_mappings=1
+  nmap <silent> ys <Plug>(operator-sandwich-add)
   nmap <silent> ds <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
   nmap <silent> cs <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-query-a)
 '''
