@@ -21,6 +21,7 @@ repo = 'lewis6991/gitsigns.nvim'
 hook_post_source = '''
 lua require('gitsigns').setup()
 '''
+
 [[plugins]]
 repo = 'glepnir/galaxyline.nvim'
 hook_post_source = '''

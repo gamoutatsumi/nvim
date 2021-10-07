@@ -107,14 +107,6 @@ gls.left[8] = {
   }
 }
 
-gls.left[9] = {
-  CocServices = {
-    provider = function() return vim.g.coc_status end,
-    condition = vim.fn.exists('g:coc_status') == 1,
-    highlight= { colors.white, colors.slateblue, 'bold' }
-  }
-}
-
 gls.right[1] = {
   FileTypeName = {
     provider = function() return require('galaxyline.provider_buffer').get_buffer_filetype():lower() .. ' ' end,

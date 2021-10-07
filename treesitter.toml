@@ -5,9 +5,6 @@ lua require('plugins.treesitter_setting')
 '''
 
 [[plugins]]
-repo = 'romgrk/nvim-treesitter-context'
-
-[[plugins]]
 repo = 'nvim-treesitter/nvim-treesitter-refactor'
 
 # [[plugins]]

@@ -3,8 +3,10 @@ repo = 'neovim/nvim-lspconfig'
 
 [[plugins]]
 repo = 'williamboman/nvim-lsp-installer'
-hook_post_source = '''
-lua require("plugins.lsp")
+hook_add = '''
+  if dein#tap('nvim-lsp-installer') && dein#tap('nvim-lspconfig')
+    lua require("plugins.lsp")
+  endif
 '''
 
 [[plugins]]
@@ -29,9 +31,6 @@ repo = 'Shougo/ddc-around'
 repo = 'Shougo/ddc-nvim-lsp'
 
 [[plugins]]
-repo = 'matsui54/ddc-nvim-lsp-doc'
-
-[[plugins]]
 repo = 'LumaKernel/ddc-file'
 
 [[plugins]]
@@ -43,6 +42,8 @@ repo = 'Shougo/neco-vim'
 [[plugins]]
 repo = 'cohama/lexima.vim'
 
+[[plugins]]
+repo = 'matsui54/denops-popup-preview.vim'
 
 [[plugins]]
 repo = 'gamoutatsumi/ddc-emoji'
@@ -50,7 +51,7 @@ repo = 'gamoutatsumi/ddc-emoji'
 [[multiple_plugins]]
 plugins = [
   'ddc.vim', 'ddc-matcher_fuzzy', 'ddc-sorter_rank',
-  'ddc-nvim-lsp', 'ddc-nvim-lsp-doc', 'ddc-file',
+  'ddc-nvim-lsp', 'denops-popup-preview.vim', 'ddc-file',
   'ddc-around', 'denops-skkeleton.vim', 'pum.vim',
   'neco-vim', 'lexima.vim', 'vim-vsnip',
   'vim-vsnip-integ', 'ddc-emoji'
@@ -109,7 +110,7 @@ hook_add = '''
     LspStart
 
     call ddc#enable()
-    call ddc_nvim_lsp_doc#enable()
+    call popup_preview#enable()
   endfunction
 
   function! CommandlinePre() abort
@@ -125,7 +126,7 @@ hook_add = '''
     cmap <silent><expr> <CR> pum#visible() ? '<Cmd>call pum#map#confirm()<CR>' : '<CR>'
     cmap <silent><expr> <Esc> pum#visible() ? '<Cmd>call pum#map#cancel()<CR>' : '<C-c>'
 
-    autocmd CmdlineLeave ++once * call CommandlinePost()
+    autocmd CmdlineLeave * ++once call CommandlinePost()
   endfunction
 
   function! CommandlinePost() abort
